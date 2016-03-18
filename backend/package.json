@@ -1,0 +1,39 @@
+{
+  "name": "mastering-mean-backend",
+  "version": "1.0.0",
+  "description": "Mastering MEAN Web Development",
+  "main": "index.js",
+  "scripts": {
+    "addsymlink": "node -e \"try{require('fs').symlinkSync('../','node_modules/app','dir')}catch(e){}\"",
+    "postinstall": "npm run addsymlink",
+    "lint": "standard",
+    "worker": "node worker.js",
+    "test": "NODE_ENV=test istanbul cover _mocha",
+    "start": "node index.js"
+  },
+  "author": "Shane A. Stillwell <shanestillwell@gmail.com>",
+  "repository": "northernv/mastering-mean",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.0.6",
+    "body-parser": "^1.14.1",
+    "compression": "^1.6.0",
+    "cors": "^2.7.1",
+    "express": "git+https://github.com/strongloop/express.git#5.0.0-alpha.2",
+    "express-jwt": "^3.3.0",
+    "jsonwebtoken": "^5.5.0",
+    "lodash": "^3.10.1",
+    "mongoose": "^4.3.1",
+    "monq": "^0.3.4",
+    "nconf": "^0.8.2",
+    "socket.io": "^1.4.4",
+    "sparkpost": "^1.1.0"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.1",
+    "mocha": "^2.3.4",
+    "standard": "^5.3.1",
+    "supertest": "^1.1.0",
+    "supertest-as-promised": "^2.0.2"
+  }
+}
