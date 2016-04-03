@@ -1,6 +1,9 @@
+$enable-flex: true !default;
 @import "bootstrap/scss/bootstrap.scss";
 
 .hero {
+  @extend .jumbotron;
+  @extend .m-y-md;
   color: #fff;
   text-shadow: 1px 1px 2px #000;
   background: url(/assets/starfield.jpg) no-repeat center -140px fixed;
