@@ -1,6 +1,9 @@
 $enable-flex: true !default;
 @import "bootstrap/scss/bootstrap.scss";
 
+$fa-font-path: "../node_modules/font-awesome/fonts" !default;
+@import "font-awesome/scss/font-awesome.scss";
+
 .hero {
   @extend .jumbotron;
   @extend .m-y-md;
