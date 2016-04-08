@@ -14,7 +14,7 @@ import {APP_BASE_HREF} from 'angular2/router'
   <div class="container">
     <nav class="navbar navbar-dark bg-inverse">
       <a class="navbar-brand" href="#">Mastering MEAN</a>
-      <ul class="nav navbar-nav ">
+      <ul class="nav navbar-nav hidden-sm-down">
         <li class="nav-item">
           <a class="nav-link" href="#">Masters <span class="label label-pill label-primary">1</span></a>
         </li>
@@ -29,12 +29,18 @@ import {APP_BASE_HREF} from 'angular2/router'
         </li>
       </ul>
       <ul class="nav navbar-nav pull-xs-right">
-        <li class="nav-item ">
+        <li class="nav-item hidden-sm-down">
           <a class="nav-link" href="#">Login</a>
+        </li>
+        <li class="nav-item hidden-md-up">
+          <button type="button" (click)="onClick()" class="btn btn-secondary-online"><i class="fa fa-bars"></i></button>
         </li>
       </ul>
     </nav>
-    <div class="hero">
+    <div class="hidden-md-up">
+      <h2 class="text-xs-center">Mastering MEAN</h2>
+    </div>
+    <div class="hero hidden-sm-down">
       <h1 class="display-3">Mastering MEAN</h1>
       <p class="lead">Full Stack Expert Javascript</p>
     </div>
