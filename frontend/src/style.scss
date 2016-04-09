@@ -23,3 +23,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts" !default;
     @include make-col-span(6);
   }
 }
+
+.router-link-active {
+  @extend .active;
+}

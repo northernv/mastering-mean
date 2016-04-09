@@ -37,24 +37,24 @@ import Home from './home'
   template: `
   <div class="container">
     <nav class="navbar navbar-dark bg-inverse">
-      <a class="navbar-brand" href="#">Mastering MEAN</a>
+      <a class="navbar-brand" [routerLink]="['/Home']">Mastering MEAN</a>
       <ul class="nav navbar-nav hidden-sm-down">
         <li class="nav-item">
-          <a class="nav-link" href="#">Masters <span class="label label-pill label-primary">1</span></a>
+          <a class="nav-link" [routerLink]="['/Masters']">Masters <span class="label label-pill label-primary">1</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Weapons <span class="label label-pill label-danger">15</span></a>
+          <a class="nav-link" [routerLink]="['/Weapons']">Weapons <span class="label label-pill label-danger">15</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Ships</a>
+          <a class="nav-link" [routerLink]="['/Ships']">Ships</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link">About</a>
         </li>
       </ul>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item hidden-sm-down">
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link">Login</a>
         </li>
         <li class="nav-item hidden-md-up">
           <button type="button" (click)="onClick()" class="btn btn-secondary-online"><i class="fa fa-bars"></i></button>
