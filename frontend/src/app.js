@@ -28,39 +28,16 @@ import WeaponEdit from './weapons/edit'
 import WeaponNew from './weapons/new'
 
 import Home from './home'
+import NavBar from './nav/navbar'
 
 @Component({
   selector: 'master-app'
 })
 @View({
-  directives: [ROUTER_DIRECTIVES],
+  directives: [ROUTER_DIRECTIVES, NavBar],
   template: `
   <div class="container">
-    <nav class="navbar navbar-dark bg-inverse">
-      <a class="navbar-brand" [routerLink]="['/Home']">Mastering MEAN</a>
-      <ul class="nav navbar-nav hidden-sm-down">
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/Masters']">Masters <span class="label label-pill label-primary">1</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/Weapons']">Weapons <span class="label label-pill label-danger">15</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/Ships']">Ships</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">About</a>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav pull-xs-right">
-        <li class="nav-item hidden-sm-down">
-          <a class="nav-link">Login</a>
-        </li>
-        <li class="nav-item hidden-md-up">
-          <button type="button" (click)="onClick()" class="btn btn-secondary-online"><i class="fa fa-bars"></i></button>
-        </li>
-      </ul>
-    </nav>
+    <navbar></navbar>
     <router-outlet></router-outlet>
   </div>
   `
