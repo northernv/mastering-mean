@@ -1,7 +1,6 @@
 'use strict'
 
 const router = require('express').Router()
-router.use('/masters', require('./masters'))
-router.use('/ships', require('./ships'))
-router.use('/weapons', require('./weapons'))
+router.use('/v1', require('./v1'))
 module.exports = router
+

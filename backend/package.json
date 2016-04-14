@@ -17,7 +17,7 @@
   "dependencies": {
     "bluebird": "^3.0.6",
     "body-parser": "^1.14.1",
-    "compression": "^1.6.0",
+    "compression": "^1.6.1",
     "cors": "^2.7.1",
     "express": "git+https://github.com/strongloop/express.git#5.0.0-alpha.2",
     "express-jwt": "^3.3.0",
