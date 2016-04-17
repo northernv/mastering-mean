@@ -8,6 +8,7 @@ const Bluebird = require('bluebird')
 const app = express()
 const api = require('./api')
 const config = require('./config')
+const bodyParser = require('body-parser')
 
 // Connect to mongo
 mongoose.Promise = Bluebird
@@ -17,6 +18,7 @@ db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', console.log.bind(console, 'connected to mongodb'))
 
 app.use(compression())
+app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

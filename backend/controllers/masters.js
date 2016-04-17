@@ -1,128 +1,15 @@
 'use strict'
 
-const _ = require('lodash')
-
-let db = [{
-  firstName: 'Luke',
-  lastName: 'Skywalker',
-  level: 8
-}, {
-  firstName: 'Mace',
-  lastName: 'Windu',
-  level: 9
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}, {
-  firstName: 'Yoda',
-  lastName: '',
-  level: 10
-}]
+const Master = require('app/models/master')
 
 exports.masterId = function (req, res, next, param) {
-  req.master = {
-    firstName: 'Luke',
-    lastName: 'Skywalker',
-    level: 10
-  }
-  next()
+  Master
+    .findById(param)
+    .then(function (master) {
+      req.master = master
+      next()
+    })
+    .catch(next)
 }
 
 exports.get = function (req, res, next) {
@@ -132,39 +19,64 @@ exports.get = function (req, res, next) {
 }
 
 exports.list = function (req, res, next) {
-  const sort = req.query.sort
-  const fields = req.query.fields
-  const level = req.query.level
-  let masters = _.clone(db)
+  const sort = req.query.sort || null
+  const fields = req.query.fields || null
+  const level = req.query.level || null
 
-  if (sort !== undefined) {
-    masters = _.sortBy(masters, sort)
+  let query = Master.find()
+
+  if (sort !== null) {
+    query.sort(sort.replace(',', ' '))
   }
 
-  if (level !== undefined) {
-    masters = _.filter(masters, {level: parseInt(level, 10)})
+  if (level !== null) {
+    query.where({level: parseInt(level, 10)})
   }
 
-  if (fields !== undefined) {
-    const fieldArr = fields.split(',')
-    masters = _.map(masters, (master) => {
-      return _.pick(master, fieldArr)
+  if (fields !== null) {
+    query.select(Master.reduceFields(fields))
+  }
+
+  query
+    .then(function (masters) {
+      res.send(masters)
     })
-  }
-  res.send(masters)
+    .catch(next)
 }
 
 exports.new = function (req, res, next) {
-  res.send({})
+  const data = req.body
+
+  const newMaster = new Master(data)
+  newMaster
+    .save()
+    .then(function (master) {
+      res.send(master)
+    })
+    .catch(next)
 }
 
 exports.update = function (req, res, next) {
   if (!req.master) return res.sendStatus(404)
 
-  res.send({})
+  const data = req.body
+
+  req.master
+    .set(data)
+    .save()
+    .then(function (master) {
+      res.send(master)
+    })
+    .catch(next)
 }
 
 exports.delete = function (req, res, next) {
   if (!req.master) return res.sendStatus(404)
-  res.sendStatus(200)
+
+  req.master
+    .remove()
+    .then(function () {
+      res.sendStatus(200)
+    })
+    .catch(next)
 }
