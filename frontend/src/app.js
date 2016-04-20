@@ -10,6 +10,7 @@ import {
   ROUTER_BINDINGS,
   ROUTER_DIRECTIVES
 } from 'angular2/router'
+import {HTTP_PROVIDERS} from 'angular2/http'
 
 // Pages for the routes below
 import Masters from './masters/list'
@@ -65,5 +66,6 @@ class App {
 
 bootstrap(App, [
   ROUTER_BINDINGS,
+  HTTP_PROVIDERS,
   bind(APP_BASE_HREF).toValue('/')
 ])

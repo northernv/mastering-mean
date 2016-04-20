@@ -1,5 +1,5 @@
 'use strict'
-let nconf = require('nconf')
+const nconf = require('nconf')
 
 module.exports = nconf
   .argv()
@@ -9,5 +9,4 @@ module.exports = nconf
   })
   .defaults({
     API_URL: 'http://localhost:3000/api/v1',
-    SOCKET_URL: 'localhost:3000'
   })

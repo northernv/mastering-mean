@@ -15,7 +15,7 @@ import Alert from './alert'
           <a class="nav-link" [routerLink]="['/Masters']">Masters <alert num="1"></alert></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/Weapons']">Weapons <alert num="15'></alert></a>
+          <a class="nav-link" [routerLink]="['/Weapons']">Weapons <alert num="15"></alert></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/Ships']">Ships <alert num="0"></alert></a>
