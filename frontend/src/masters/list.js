@@ -12,7 +12,7 @@ import MasterService from './service'
   template: `
   <h1 class="title">Jedi Masters <a class="btn btn-primary" [routerLink]="['/MasterNew']" title="Create a new Jedi">New</a></h1>
   <ul class="master-list">
-    <li *ngFor="#master of masters"><a [routerLink]="['/MasterView', {id: master._id}]">{{ master.firstName }}</a></li>
+    <li *ngFor="#master of masters"><a [routerLink]="['/MasterView', {id: master._id}]">{{ master.fullname }}</a></li>
   </ul>
 `
 })

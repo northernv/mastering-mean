@@ -2,10 +2,15 @@ import {Http, Headers} from 'angular2/http'
 import {Injectable} from 'angular2/core'
 import 'rxjs/add/operator/map'
 import config from '../config'
+import {Master} from './master'
 
 const headers = new Headers({
   'Content-Type': 'application/json'
 })
+
+function convertToMaster (data) {
+  return new Master(data)
+}
 
 @Injectable()
 export default class MasterService {
@@ -16,11 +21,15 @@ export default class MasterService {
     return this.http
       .get(`${config.API_URL}/masters`)
       .map((res) => res.json())
+      .map((res) => {
+        return res.map(convertToMaster)
+      })
   }
   getMaster (id) {
     return this.http
       .get(`${config.API_URL}/masters/${id}`)
       .map((res) => res.json())
+      .map(convertToMaster)
   }
   createMaster (master) {
     return this.http
