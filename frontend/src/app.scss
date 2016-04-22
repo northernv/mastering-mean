@@ -1,0 +1,7 @@
+$fa-font-path: "../node_modules/font-awesome/fonts" !default;
+$enable-flex: true !default;
+@import "bootstrap/scss/bootstrap.scss";
+@import "font-awesome/scss/font-awesome.scss";
+@import "style.scss";
+
+@import "nav/style";

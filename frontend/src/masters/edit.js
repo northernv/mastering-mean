@@ -1,34 +1,33 @@
 import _ from 'lodash'
 import { Component, View } from 'angular2/core'
 import { RouteParams, Router } from 'angular2/router'
-import { NgModel } from 'angular2/common'
 
 import MasterService from './service'
+import MasterForm from './form'
+import Alert from '../common/alert/service'
+import SaveButton from '../common/save-button'
 
 @Component({
   selector: 'master-edit',
-  providers: [MasterService]
+  providers: [MasterService, Alert]
 })
 @View({
-  directives: [NgModel],
+  directives: [MasterForm, SaveButton],
   template: `
   <h1>Edit Master Yoda, you will</h1>
   <p>Do or do not, there is no try id: {{id}}</p>
-  <form>
-    <fieldset class="form-group">
-      <label>First Name</label>
-      <input type="text" id="firstName" [(ngModel)]="master.firstName">
-    </fieldset>
-    <fieldset class="form-group">
-      <label>Last Name</label>
-      <input type="text" id="firstName" [(ngModel)]="master.lastName">
-    </fieldset>
-    <button type="button" class="btn btn-primary" (click)="handleSave()">Save</button>
-  </form>
+  <master-form [master]="master" (formData)="handleFormUpdate($event)">
+    <button type="button" class="btn btn-secondary" (click)="handleCancel()"><i class="fa fa-ban"></i> Cancel</button>
+    <save-button id="save" (click)="handleSave()" [isSaving]="isSaving" [disableSave]="disableSave"></save-button>
+  </master-form>
 `
 })
 export default class MasterEdit {
-  constructor (params: RouteParams, service: MasterService, router: Router) {
+  constructor (params: RouteParams, service: MasterService, router: Router, alert: Alert) {
+    this.alert = Alert
+    this.disableSave = false
+    this.isSaving = false
+    this.formData = {}
     this.router = router
     this.id = params.get('id')
     this.master = {}
@@ -40,9 +39,23 @@ export default class MasterEdit {
       })
   }
 
+  handleFormUpdate (data) {
+    this.formData = data
+    let isValid = this.master.isValid(data)
+    this.disableSave = !isValid
+  }
+
+  handleValid (e) {
+    this.disableSave = !e
+  }
+
+  handleCancel () {
+    this.router.navigate(['/MasterView', {id: this.id}])
+  }
+
   handleSave ($event) {
     this.isSaving = true
-    const data = _.assign(this.master, {_id: this.id})
+    const data = _.assign(this.formData, {_id: this.id})
     this.service
       .saveMaster(data)
       .subscribe((res) => {
@@ -50,6 +63,7 @@ export default class MasterEdit {
       }, (err) => {
         this.isSaving = false
         console.error(err)
+        this.alert.show('Error saving Jedi master')
       })
   }
 }

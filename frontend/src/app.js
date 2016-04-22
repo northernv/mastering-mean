@@ -1,4 +1,4 @@
-import './style.scss'
+import './app.scss'
 import 'zone.js/dist/zone-microtask'
 import 'reflect-metadata'
 
