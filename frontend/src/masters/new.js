@@ -1,31 +1,23 @@
-import _ from 'lodash'
-import { Component, View } from 'angular2/core'
-import { Router } from 'angular2/router'
-import { NgModel } from 'angular2/common'
-import { Master } from './master'
-
+import {Component, View} from 'angular2/core'
+import {Router} from 'angular2/router'
+import MasterForm from './form'
 import MasterService from './service'
+import {Master} from './master'
 
+import SaveButton from '../common/save-button'
 
 @Component({
   selector: 'master-new',
   providers: [MasterService]
 })
 @View({
-  directives: [NgModel],
+  directives: [MasterForm, SaveButton],
   template: `
   <h1>New Jedi Master</h1>
-  <form>
-    <fieldset class="form-group">
-      <label>First Name</label>
-      <input type="text" id="firstName" [(ngModel)]="master.firstName">
-    </fieldset>
-    <fieldset class="form-group">
-      <label>Last Name</label>
-      <input type="text" id="firstName" [(ngModel)]="master.lastName">
-    </fieldset>
-    <button type="button" class="btn btn-primary" (click)="handleSave()">Save</button>
-  </form>
+  <master-form [master]="master" (formData)="handleFormUpdate($event)">
+    <button type="button" class="btn btn-secondary" (click)="handleCancel()"><i class="fa fa-ban"></i> Cancel</button>
+    <save-button id="create" (click)="handleSave()" name="Create" [isSaving]="isSaving" [disableSave]="disableSave"></save-button>
+  </master-form>
 `
 })
 export default class MasterNew {
@@ -34,17 +26,24 @@ export default class MasterNew {
     this.master = new Master()
     this.service = service
   }
-
+  handleFormUpdate (data) {
+    this.formData = data
+    let isValid = this.master.isValid(data)
+    this.disableSave = !isValid
+  }
+  handleCancel () {
+    this.router.navigate(['/Masters'])
+  }
   handleSave ($event) {
     this.isSaving = true
-    const data = _.assign(this.master)
     this.service
-      .createMaster(data)
+      .createMaster(this.formData)
       .subscribe((res) => {
         this.router.navigate(['/MasterView', {id: res._id}])
       }, (err) => {
         this.isSaving = false
         console.error(err)
+        this.alert.show('Error saving Jedi master')
       })
   }
 }
