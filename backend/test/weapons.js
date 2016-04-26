@@ -8,9 +8,14 @@ const URL = '/api/v1/weapons'
 
 describe('Weapons', function () {
   let weapon
+  let token
 
   before(function () {
     return helper.dropCollection(Weapon)
+  }) 
+
+  before(function () {
+    token = helper.generateToken()
   })
 
   it('should add one weapon', function () {
@@ -21,6 +26,7 @@ describe('Weapons', function () {
 
     return request
       .post(URL)
+      .set('Authorization', token)
       .send(data)
       .then(function (res) {
         weapon = res.body
@@ -37,6 +43,7 @@ describe('Weapons', function () {
 
     return request
       .post(URL)
+      .set('Authorization', token)
       .send(data)
       .then(function (res) {
         assert.equal(res.body.title, data.title)
@@ -56,6 +63,7 @@ describe('Weapons', function () {
     const description = 'hey, imma new descr'
     return request
       .put(`${URL}/${weapon._id}`)
+      .set('Authorization', token)
       .send({
         description: description
       })
@@ -68,6 +76,7 @@ describe('Weapons', function () {
   it('should delete a weapon', function () {
     return request
       .delete(`${URL}/${weapon._id}`)
+      .set('Authorization', token)
       .expect(200)
   })
 })

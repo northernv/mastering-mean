@@ -8,9 +8,14 @@ const URL = '/api/v1/ships'
 
 describe('Ships', function () {
   let ship
+  let token
 
   before(function () {
     return helper.dropCollection(Ship)
+  })
+
+  before(function () {
+    token = helper.generateToken()
   })
 
   it('should add one ship', function () {
@@ -21,6 +26,7 @@ describe('Ships', function () {
 
     return request
       .post(URL)
+      .set('Authorization', token)
       .send(data)
       .then(function (res) {
         ship = res.body
@@ -37,6 +43,7 @@ describe('Ships', function () {
 
     return request
       .post(URL)
+      .set('Authorization', token)
       .send(data)
       .then(function (res) {
         assert.equal(res.body.title, data.title)
@@ -56,6 +63,7 @@ describe('Ships', function () {
     const description = 'hey imma ship desc'
     return request
       .put(`${URL}/${ship._id}`)
+      .set('Authorization', token)
       .send({
         description: description
       })
@@ -68,6 +76,7 @@ describe('Ships', function () {
   it('should delete a ship', function () {
     return request
       .delete(`${URL}/${ship._id}`)
+      .set('Authorization', token)
       .expect(200)
   })
 })

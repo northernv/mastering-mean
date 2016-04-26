@@ -8,9 +8,14 @@ const URL = '/api/v1/masters'
 
 describe('Masters', function () {
   let master
+  let token
 
   before(function () {
     return helper.dropCollection(Master)
+  })
+
+  before(function () {
+    token = helper.generateToken()
   })
 
   it('should add one master', function () {
@@ -21,6 +26,7 @@ describe('Masters', function () {
 
     return request
       .post(URL)
+      .set('Authorization', token)
       .send(data)
       .then(function (res) {
         master = res.body
@@ -37,6 +43,7 @@ describe('Masters', function () {
 
     return request
       .post(URL)
+      .set('Authorization', token)
       .send(data)
       .then(function (res) {
         assert.equal(res.body.firstName, data.firstName)
@@ -56,6 +63,7 @@ describe('Masters', function () {
     const email = 'jedi@example.com'
     return request
       .put(`${URL}/${master._id}`)
+      .set('Authorization', token)
       .send({
         email: email
       })
@@ -68,6 +76,7 @@ describe('Masters', function () {
   it('should delete a master', function () {
     return request
       .delete(`${URL}/${master._id}`)
+      .set('Authorization', token)
       .expect(200)
   })
 })
