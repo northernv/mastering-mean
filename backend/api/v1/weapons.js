@@ -2,15 +2,16 @@
 
 const router = require('express').Router()
 const controller = require('app/controllers/weapons')
+const jwt = require('app/services/jwt')
 
 router.route('/')
   .get(controller.list)
-  .post(controller.new)
+  .post(jwt.mw, controller.new)
 
 router.route('/:id')
   .get(controller.get)
-  .put(controller.update)
-  .delete(controller.delete)
+  .put(jwt.mw, controller.update)
+  .delete(jwt.mw, controller.delete)
 
 router.param('id', controller.weaponId)
 
