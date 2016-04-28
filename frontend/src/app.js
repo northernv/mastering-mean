@@ -12,7 +12,13 @@ import {
 } from 'angular2/router'
 import {HTTP_PROVIDERS} from 'angular2/http'
 
+import TokenService from './users/token'
+
 // Pages for the routes below
+import Login from './users/login'
+import Signup from './users/signup'
+import Profile from './users/profile'
+
 import Masters from './masters/list'
 import MasterView from './masters/view'
 import MasterEdit from './masters/edit'
@@ -46,6 +52,10 @@ import NavBar from './nav/navbar'
 @RouteConfig([
   {path: '/', component: Home, name: 'Home'},
 
+  {path: '/login', component: Login, name: 'Login'},
+  {path: '/signup', component: Signup, name: 'Signup'},
+  {path: '/profile/:id', component: Profile, name: 'Profile'},
+
   {path: '/masters', component: Masters, name: 'Masters'},
   {path: '/master/:id', component: MasterView, name: 'MasterView'},
   {path: '/master/:id/edit', component: MasterEdit, name: 'MasterEdit'},
@@ -67,5 +77,6 @@ class App {
 bootstrap(App, [
   ROUTER_BINDINGS,
   HTTP_PROVIDERS,
+  TokenService,
   bind(APP_BASE_HREF).toValue('/')
 ])
