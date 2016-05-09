@@ -2,7 +2,7 @@ import './app.scss'
 import 'zone.js/dist/zone-microtask'
 import 'reflect-metadata'
 
-import {bind, Component, View} from 'angular2/core'
+import {bind, Component, View, provide} from 'angular2/core'
 import {bootstrap} from 'angular2/platform/browser'
 import {
   RouteConfig,
@@ -10,7 +10,7 @@ import {
   ROUTER_BINDINGS,
   ROUTER_DIRECTIVES
 } from 'angular2/router'
-import {HTTP_PROVIDERS} from 'angular2/http'
+import {Headers, HTTP_PROVIDERS, RequestOptions} from 'angular2/http'
 
 import TokenService from './users/token'
 
@@ -74,9 +74,20 @@ import NavBar from './nav/navbar'
 class App {
 }
 
+class MyOptions extends RequestOptions {
+  constructor () {
+    super({
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+  }
+}
+
 bootstrap(App, [
   ROUTER_BINDINGS,
   HTTP_PROVIDERS,
+  provide(RequestOptions, {useClass: MyOptions}),
   TokenService,
   bind(APP_BASE_HREF).toValue('/')
 ])

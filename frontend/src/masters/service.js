@@ -1,12 +1,9 @@
-import {Http, Headers} from 'angular2/http'
+import {Http} from 'angular2/http'
 import {Injectable} from 'angular2/core'
 import 'rxjs/add/operator/map'
 import config from '../config'
 import {Master} from './master'
-
-const headers = new Headers({
-  'Content-Type': 'application/json'
-})
+import TokenService from '../users/token'
 
 function convertToMaster (data) {
   return new Master(data)
@@ -14,8 +11,9 @@ function convertToMaster (data) {
 
 @Injectable()
 export default class MasterService {
-  constructor (http: Http) {
+  constructor (http: Http, token: TokenService) {
     this.http = http
+    this.token = token
   }
   getMasters () {
     return this.http
@@ -32,17 +30,15 @@ export default class MasterService {
       .map(convertToMaster)
   }
   createMaster (master) {
+    const opts = this.token.getOptions()
     return this.http
-      .post(`${config.API_URL}/masters`, JSON.stringify(master), {
-        headers: headers
-      })
+      .post(`${config.API_URL}/masters`, JSON.stringify(master), opts)
       .map((res) => res.json())
   }
   saveMaster (master) {
+    const opts = this.token.getOptions()
     return this.http
-      .put(`${config.API_URL}/masters/${master._id}`, JSON.stringify(master), {
-        headers: headers
-      })
+      .put(`${config.API_URL}/masters/${master._id}`, JSON.stringify(master), opts)
       .map((res) => res.json())
   }
 }

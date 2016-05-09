@@ -1,4 +1,5 @@
 import {Component, View} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 import {RouteParams, Router} from 'angular2/router'
 import MasterService from './service'
 
@@ -7,11 +8,15 @@ import MasterService from './service'
   providers: [MasterService]
 })
 @View({
+  directives: [NgFor],
   template: `
   <h1 class="master-name">{{ master.fullname }}
   <button type="button" (click)="handleClick($event)" class="btn btn-primary"><i class="fa fa-edit fa-lg"></i></button>
   </h1>
   <p>id: {{id}}</p>
+  <p>Planet: {{master.origin || 'Unknown'}}</p>
+  <p>Skill Level: {{master.level || 'Unknown'}}</p>
+  <p>Skills: {{master.skills}}</p>
 `
 })
 export default class MasterView {

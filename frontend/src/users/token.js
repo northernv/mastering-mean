@@ -64,8 +64,8 @@ export default class TokenService {
     })
   }
   getAuthHeader (_headers) {
-    let headers = _headers || new Headers()
-    let auth = `Bearer ${this.getToken()}`
+    const headers = _headers || new Headers()
+    const auth = `Bearer ${this.getToken()}`
 
     headers.set('Authorization', auth)
     return headers

@@ -14,7 +14,7 @@ import SaveButton from '../common/save-button'
 @View({
   directives: [MasterForm, SaveButton],
   template: `
-  <h1>Edit Master Yoda, you will</h1>
+  <h1>Edit Master {{master.fullname}}, you will</h1>
   <p>Do or do not, there is no try id: {{id}}</p>
   <master-form [master]="master" (formData)="handleFormUpdate($event)">
     <button type="button" class="btn btn-secondary" (click)="handleCancel()"><i class="fa fa-ban"></i> Cancel</button>
