@@ -1,6 +1,7 @@
 'use strict'
 
 const Master = require('app/models/master')
+const queue = require('app/jobs/client')
 
 exports.masterId = function (req, res, next, param) {
   Master
@@ -51,7 +52,9 @@ exports.new = function (req, res, next) {
   newMaster
     .save()
     .then(function (master) {
-      res.send(master)
+      queue.enqueue('newMaster', {_id: master._id}, () => {
+        res.send(master)
+      })
     })
     .catch(next)
 }
