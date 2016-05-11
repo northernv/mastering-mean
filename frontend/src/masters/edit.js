@@ -16,7 +16,7 @@ import SaveButton from '../common/save-button'
   template: `
   <h1>Edit Master {{master.fullname}}, you will</h1>
   <p>Do or do not, there is no try id: {{id}}</p>
-  <master-form [master]="master" (formData)="handleFormUpdate($event)">
+  <master-form [master]="master" (formData)="handleFormUpdate($event)" [masters]="masters">
     <button type="button" class="btn btn-secondary" (click)="handleCancel()"><i class="fa fa-ban"></i> Cancel</button>
     <save-button id="save" (click)="handleSave()" [isSaving]="isSaving" [disableSave]="disableSave"></save-button>
   </master-form>
@@ -31,11 +31,18 @@ export default class MasterEdit {
     this.router = router
     this.id = params.get('id')
     this.master = {}
+    this.masters = []
     this.service = service
     service
       .getMaster(this.id)
       .subscribe((res) => {
         this.master = res
+      })
+
+    service
+      .getMasters()
+      .subscribe((res) => {
+        this.masters = res
       })
   }
 

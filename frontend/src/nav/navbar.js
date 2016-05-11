@@ -76,7 +76,7 @@ export default class NavBar {
     this.showNav = false
     token
       .getOb()
-      .subscribe(res => {
+      .subscribe((res) => {
         this.isLoggedIn = res.isLoggedIn
         this.userId = res.id
       })

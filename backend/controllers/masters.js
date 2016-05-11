@@ -63,6 +63,7 @@ exports.update = function (req, res, next) {
   if (!req.master) return res.sendStatus(404)
 
   const data = req.body
+  console.log(data);
 
   req.master
     .set(data)

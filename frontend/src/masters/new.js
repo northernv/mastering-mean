@@ -14,7 +14,7 @@ import SaveButton from '../common/save-button'
   directives: [MasterForm, SaveButton],
   template: `
   <h1>New Jedi Master</h1>
-  <master-form [master]="master" (formData)="handleFormUpdate($event)">
+  <master-form [master]="master" (formData)="handleFormUpdate($event)" [masters]="masters">
     <button type="button" class="btn btn-secondary" (click)="handleCancel()"><i class="fa fa-ban"></i> Cancel</button>
     <save-button id="create" (click)="handleSave()" name="Create" [isSaving]="isSaving" [disableSave]="disableSave"></save-button>
   </master-form>
@@ -25,6 +25,12 @@ export default class MasterNew {
     this.router = router
     this.master = new Master()
     this.service = service
+
+    service
+      .getMasters()
+      .subscribe((res) => {
+        this.masters = res
+      })
   }
   handleFormUpdate (data) {
     this.formData = data

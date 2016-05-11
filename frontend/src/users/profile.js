@@ -31,8 +31,10 @@ export default class UserProfile {
     this.service
       .getUser(this.id)
       .subscribe(
-        res => this.user = res,
-        err => {
+        (res) => {
+          this.user = res
+        },
+        (err) => {
           console.error(err)
           this.router.navigate(['/Home'])
           this.alert.error(err)
@@ -50,9 +52,9 @@ export default class UserProfile {
     this.isSaving = true
     this.service
       .update(this.id, this.data)
-      .subscribe(res => {
+      .subscribe((res) => {
         this.router.navigate(['/Home'])
-      }, err => {
+      }, (err) => {
         this.isSaving = false
         this.alert.error(err)
       })

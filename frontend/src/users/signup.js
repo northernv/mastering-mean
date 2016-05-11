@@ -37,9 +37,9 @@ export default class UserSignup {
     this.isSaving = true
     this.service
       .signup(this.data)
-      .subscribe(res => {
+      .subscribe((res) => {
         this.router.navigate(['/Home'])
-      }, err => {
+      }, (err) => {
         this.isSaving = false
         this.alert.error('Unable to create user')
       })

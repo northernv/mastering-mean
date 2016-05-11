@@ -19,8 +19,8 @@ export default class UserService {
       .post(`${config.API_URL}/users`, JSON.stringify(data), {
         headers: headers
       })
-      .map(res => res.json())
-      .map(res => {
+      .map((res) => res.json())
+      .map((res) => {
         this.token.saveUserData(res)
         return res
       })
@@ -29,8 +29,8 @@ export default class UserService {
     let opts = this.token.getOptions()
     return this.http
       .post(`${config.API_URL}/users/login`, JSON.stringify(data), opts)
-      .map(res => res.json())
-      .map(res => {
+      .map((res) => res.json())
+      .map((res) => {
         this.token.saveUserData(res)
         return res
       })
@@ -39,8 +39,8 @@ export default class UserService {
     let opts = this.token.getOptions()
     return this.http
       .get(`${config.API_URL}/users/${id}`, opts)
-      .map(res => res.json())
-      .map(res => {
+      .map((res) => res.json())
+      .map((res) => {
         return res
       })
   }
@@ -48,8 +48,8 @@ export default class UserService {
     let opts = this.token.getOptions()
     return this.http
       .put(`${config.API_URL}/users/${id}`, JSON.stringify(data), opts)
-      .map(res => res.json())
-      .map(res => {
+      .map((res) => res.json())
+      .map((res) => {
         this.token.saveUserData(res)
         return res
       })

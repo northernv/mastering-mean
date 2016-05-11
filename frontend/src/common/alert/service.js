@@ -12,7 +12,7 @@ export default class AlertBox {
     desc: ''
   }
   constructor () {
-    this.myob = Observable.create(o => {
+    this.myob = Observable.create((o) => {
       observer = o
     })
   }
