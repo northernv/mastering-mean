@@ -5,6 +5,7 @@ const Bluebird = require('bluebird')
 const Master = require('app/models/master')
 const User = require('app/models/user')
 const view = require('app/views/new-master-email')
+const email = require('app/services/email')
 
 module.exports = function newMaster (params, callback) {
   const id = params._id
@@ -21,17 +22,21 @@ module.exports = function newMaster (params, callback) {
     // If no master found, we just bail here
     if (_master === null) return Bluebird.reject('No master found')
 
+    const recipients = _users.map((user) => {
+      return {
+        address: {
+          email: user.email,
+          name: _.isEmpty(user.fullname) ? user.email : user.fullname
+        }
+      }
+    })
+
     const data = {master: _master}
-    console.log(_master.masters);
 
     const html = view.html(data)
     const text = view.text(data)
 
-    console.log(html)
-    console.log(text)
-
-    callback(null, html)
-
+    email.send(recipients, 'A new Jedi Master', html, text, callback)
   })
   .catch(callback)
 }
