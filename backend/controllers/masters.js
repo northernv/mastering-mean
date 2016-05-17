@@ -1,5 +1,6 @@
 'use strict'
 
+const _ = require('lodash')
 const Master = require('app/models/master')
 const queue = require('app/jobs/client')
 
@@ -53,6 +54,8 @@ exports.new = function (req, res, next) {
     .save()
     .then(function (master) {
       queue.enqueue('newMaster', {_id: master._id}, () => {
+        console.log(master);
+        req.app.locals.io.emit('new master', {master: _.pick(master, ['_id', 'firstName', 'lastName'])})
         res.send(master)
       })
     })

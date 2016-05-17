@@ -32,6 +32,7 @@ exports.login = function login (req, res, next) {
     })
 
   Bluebird.join(user, isValid, function sendRes (_user, _isValid) {
+    req.app.locals.io.emit('user login', {user: _.pick(_user, ['firstName', 'lastName', 'obfuscatedEmail'])})
     res.send(_user.response)
   })
   .catch(next)
