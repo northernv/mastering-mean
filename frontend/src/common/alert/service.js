@@ -6,11 +6,6 @@ let observer
 
 @Injectable()
 export default class AlertBox {
-  store: {
-    showAlert: true,
-    title: '',
-    desc: ''
-  }
   constructor () {
     this.myob = Observable.create((o) => {
       observer = o

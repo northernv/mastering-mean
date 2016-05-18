@@ -13,6 +13,7 @@ import {
 import {Headers, HTTP_PROVIDERS, RequestOptions} from 'angular2/http'
 
 import TokenService from './users/token'
+import Alert from './common/alert/alert'
 
 // Pages for the routes below
 import Login from './users/login'
@@ -41,10 +42,11 @@ import NavBar from './nav/navbar'
   selector: 'master-app'
 })
 @View({
-  directives: [ROUTER_DIRECTIVES, NavBar],
+  directives: [ROUTER_DIRECTIVES, NavBar, Alert],
   template: `
   <div class="container">
     <navbar></navbar>
+    <alert-box></alert-box>
     <router-outlet></router-outlet>
   </div>
   `

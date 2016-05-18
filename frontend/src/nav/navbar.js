@@ -3,20 +3,22 @@ import {Router, RouterLink} from 'angular2/router'
 import {COMMON_DIRECTIVES} from 'angular2/common'
 
 import Alert from 'app/common/alert/service'
+import Badge from './badge'
 import TokenService from 'app/users/token'
+import Socketio from 'app/socketio'
 
 @Component({
   selector: 'navbar',
-  providers: [TokenService, Alert]
+  providers: [TokenService, Alert, Socketio]
 })
 @View({
-  directives: [RouterLink, COMMON_DIRECTIVES],
+  directives: [RouterLink, Badge, COMMON_DIRECTIVES],
   template: `
     <nav class="navbar navbar-dark bg-inverse top-nav">
       <a class="navbar-brand" [routerLink]="['/Home']">Mastering MEAN</a>
       <ul class="nav navbar-nav hidden-sm-down">
         <li class="nav-item">
-          <button type="button" class="btn btn-link nav-link" (click)="clickMaster()">Masters</button>
+          <button type="button" class="btn btn-link nav-link" (click)="clickMaster()">Masters <badge [num]="newMasters"></badge></button>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/Weapons']">Weapons</a>
@@ -66,7 +68,7 @@ import TokenService from 'app/users/token'
   `
 })
 export default class NavBar {
-  constructor (router: Router, token: TokenService, alert: Alert) {
+  constructor (router: Router, token: TokenService, alert: Alert, io: Socketio) {
     this.router = router
     this.newMasters = 0
     this.newWeapons = 0
@@ -80,6 +82,14 @@ export default class NavBar {
         this.isLoggedIn = res.isLoggedIn
         this.userId = res.id
       })
+
+    io.socket.on('user login', data => {
+      alert.show(`User ${data.user.firstName || ''} ${data.user.lastName || ''} (${data.user.obfuscatedEmail || ''}) just logged in`)
+    })
+
+    io.socket.on('new master', data => {
+      this.newMasters++
+    })
   }
 
   clickMaster () {
