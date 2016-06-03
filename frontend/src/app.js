@@ -2,6 +2,7 @@ import './app.scss'
 import 'zone.js/dist/zone-microtask'
 import 'reflect-metadata'
 
+import {enableProdMode} from 'angular2/core'
 import {bind, Component, View, provide} from 'angular2/core'
 import {bootstrap} from 'angular2/platform/browser'
 import {
@@ -12,6 +13,7 @@ import {
 } from 'angular2/router'
 import {Headers, HTTP_PROVIDERS, RequestOptions} from 'angular2/http'
 
+import config from './config'
 import TokenService from './users/token'
 import Alert from './common/alert/alert'
 
@@ -74,6 +76,10 @@ import NavBar from './nav/navbar'
   {path: '/ship', component: ShipNew, name: 'ShipNew'}
 ])
 class App {
+}
+
+if (config.NODE_ENV === 'production') {
+  enableProdMode()
 }
 
 class MyOptions extends RequestOptions {

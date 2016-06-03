@@ -5,6 +5,12 @@ const User = require('app/models/user')
 const Bluebird = require('bluebird')
 const Errors = require('app/errors')
 
+exports.confirmEmail = function confirmEmail (req, res, next) {
+  // Validate confirmation string
+  // Update their record
+  // Redirect to their user profile
+}
+
 exports.signup = function signup (req, res, next) {
   const data = req.body || {}
 

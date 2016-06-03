@@ -8,7 +8,8 @@
     "driver": "webdriver-manager",
     "protractor": "protractor protractor.conf.js",
     "start": "webpack-dev-server --inline --progress --profile --colors --display-error-details --display-cached",
-    "deploy": "NODE_ENV=production webpack --progress -p --config webpack.prod.config.js",
+    "deploy": "npm run clean-public && NODE_ENV=production webpack --progress --config webpack.prod.config.js && cp ./public/index.html ./public/200.html",
+    "clean-public": "find ./public -mindepth 1 -maxdepth 1 -not -name 'assets' -not -name 'CNAME' -delete",
     "test": "npm run protractor"
   },
   "author": "Shane A. Stillwell <shanestillwell@gmail.com>",
