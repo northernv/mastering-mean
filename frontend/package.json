@@ -8,7 +8,8 @@
     "driver": "webdriver-manager",
     "protractor": "protractor protractor.conf.js",
     "start": "webpack-dev-server --inline --progress --profile --colors --display-error-details --display-cached",
-    "deploy": "NODE_ENV=production webpack --progress -p --config webpack.prod.config.js",
+    "deploy": "npm run clean-public && NODE_ENV=production webpack --progress --config webpack.prod.config.js && cp ./public/index.html ./public/200.html",
+    "clean-public": "find ./public -mindepth 1 -maxdepth 1 -not -name 'assets' -not -name 'CNAME' -delete",
     "test": "npm run protractor"
   },
   "author": "Shane A. Stillwell <shanestillwell@gmail.com>",
@@ -16,7 +17,7 @@
   "license": "MIT",
   "devDependencies": {
     "angular2": "2.0.0-beta.9",
-    "autoprefixer": "^6.3.3",
+    "autoprefixer": "^6.3.6",
     "babel-core": "^6.7.2",
     "babel-eslint": "^5.0.0",
     "babel-loader": "^6.2.4",
@@ -26,15 +27,16 @@
     "babel-plugin-transform-flow-strip-types": "^6.7.0",
     "babel-preset-es2015": "^6.6.0",
     "babylon": "^6.7.0",
-    "bootstrap": "git+https://github.com/twbs/bootstrap.git#v4.0.0-alpha.2",
+    "bootstrap": "^4.0.0-alpha.2",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.4",
-    "font-awesome": "^4.4.0",
+    "font-awesome": "^4.5.0",
     "html-webpack-plugin": "^2.10.0",
     "nconf": "^0.8.4",
+    "node-sass": "^3.4.2",
     "postcss-loader": "^0.8.2",
-    "protractor": "^3.0.0",
+    "protractor": "^3.2.2",
     "reflect-metadata": "0.1.3",
     "rxjs": "5.0.0-beta.2",
     "sass-loader": "^3.2.0",
@@ -48,7 +50,9 @@
     "webpack-dev-server": "^1.14.1",
     "zone.js": "0.5.15"
   },
-  "dependencies": {},
+  "dependencies": {
+    "socket.io-client": "^1.4.6"
+  },
   "standard": {
     "parser": "babel-eslint"
   }

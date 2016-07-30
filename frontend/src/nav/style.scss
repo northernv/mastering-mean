@@ -1,0 +1,12 @@
+.nv-alert {
+  @include label-variant(yellow);
+  @extend .label-pill;
+  color: #444;
+  font-size: 12px;
+  padding-right: .8em;
+  vertical-align: top;
+  &.danger {
+    background-color: red;
+    color: white;
+  }
+}

@@ -1,0 +1,123 @@
+body {
+  background-color: #fff;
+
+  navbar nav {
+    margin-bottom: 40px;
+  }
+
+  .list-group {
+    margin-bottom: 10px;
+  }
+
+  .router-link-active {
+    @extend .active;
+  }
+
+  .hero {
+    @extend .jumbotron;
+    @extend .m-y-md;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+    background: url(/assets/starfield.jpg) no-repeat center -140px fixed;
+    background-size: 1400px;
+  }
+
+  .new-jedi, .new-logins {
+    @include make-col();
+    $md-break: map-get($grid-breakpoints, md);
+    @media (max-width: $md-break) {
+      @include make-col-span(12);
+    }
+    @media (min-width: $md-break + .1px) {
+      @include make-col-span(6);
+    }
+  }
+
+  .nv-course-title {
+    text-transform: uppercase;
+  }
+
+  .home-sections {
+
+    .card-img-top {
+      background-size: cover;
+      width: 100%;
+      height: 200px
+    }
+
+  }
+
+  .mean-form {
+    .inputs {
+      @include make-row();
+    }
+
+    &.skinny {
+      width: 400px;
+      margin: auto;
+    }
+
+    .one-col {
+      @include make-col();
+      $md-break: map-get($grid-breakpoints, md);
+      @media (max-width: $md-break) {
+        @include make-col-span(12);
+      }
+      @media (min-width: $md-break + .1px) {
+        @include make-col-span(12);
+      }
+
+      @extend .form-group;
+    }
+
+    .two-col {
+      @include make-col();
+      $md-break: map-get($grid-breakpoints, md);
+      @media (max-width: $md-break) {
+        @include make-col-span(12);
+      }
+      @media (min-width: $md-break + .1px) {
+        @include make-col-span(6);
+      }
+
+      @extend .form-group;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
+    textarea
+    {
+      @extend .form-control;
+      &.ng-invalid {
+        border-color: red;
+      }
+    }
+  }
+
+  button {
+    @extend .btn;
+    @extend .btn-secondary;
+    &.primary {
+      @extend .btn-primary
+    }
+  }
+  .capital {
+    text-transform: capitalize
+  }
+
+  .alert {
+    position: absolute;
+    top: 60px;
+    width: 96%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    z-index: 9;
+  }
+}
+
+:fullscreen a {
+    display: flex
+}
